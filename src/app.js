@@ -1,30 +1,26 @@
 const express = require("express");
-
+require ("./config/database");
+const User = require("./models/user");
 const app = express();
 
+app.post("/signup", async(req , res)=>{
+
+  const user = new User({
+    firstName: "kanak",
+    lastName :  "rawat ",
+    email:"kanakrwt.com",
+    password:"kanak666",
+    age:"20",
+  });
+  try {
+   await user.save();
+   res.send("user created successfully....");
+} catch(err){
+  res.status(400).send("user creation failed...." + err.message);
+}
+});
 
 
-// Multiple route handler using next() fn
-
-app.use("/user", (req, res,next) => {
-  console.log(" 1st route  running properly");
-  next();
-  // res.send("1st response");
-});
-app.use("/user", (req, res,next) => {
-  console.log(" 2nd route  running properly");
-  next();
-  // res.send("2nd response");
-});
-app.use("/user", (req, res,next) => {
-  console.log(" 3rd route  running properly");
-  next();
-  // res.send("3rd response");
-});
-app.use("/user", (req, res, ) => {
-  console.log(" 4th route  running properly");
-  res.send("4th response");
-});
 app.listen(3000, () => {
   console.log(" server is successfully listening on port 3000.....");
 });
