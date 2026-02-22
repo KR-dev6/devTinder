@@ -2,6 +2,7 @@ const express = require("express");
 require ("./config/database");
 const User = require("./models/user");
 const app = express();
+require("dotenv").config();
 
 app.post("/signup", async(req , res)=>{
 
