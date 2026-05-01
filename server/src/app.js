@@ -18,7 +18,11 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173", // Vite default port
+    origin: [
+      "http://localhost:5173",
+      "https://dev-tinder-tan-six.vercel.app",
+      process.env.FRONTEND_URL
+    ],
     credentials: true,
   },
 });
@@ -31,7 +35,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://dev-tinder-tan-six.vercel.app",
+      process.env.FRONTEND_URL
+    ],
     credentials: true,
   })
 );
