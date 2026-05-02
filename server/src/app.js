@@ -27,7 +27,7 @@ const io = new Server(httpServer, {
     origin: [
       "http://localhost:5173",
       "https://dev-tinder-tan-six.vercel.app",
-      process.env.FRONTEND_URL
+      process.env.FRONTEND_URL,
     ],
     credentials: true,
   },
@@ -47,10 +47,10 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://dev-tinder-tan-six.vercel.app",
-      process.env.FRONTEND_URL
+      process.env.FRONTEND_URL,
     ],
     credentials: true,
-  })
+  }),
 );
 
 // Routes
@@ -74,7 +74,9 @@ io.on("connection", (socket) => {
   // User joins chat
   socket.on("user_connected", (userId) => {
     activeUsers.set(userId, socket.id);
-    console.log(`✓ User ${userId} connected. Active users: ${activeUsers.size}`);
+    console.log(
+      `✓ User ${userId} connected. Active users: ${activeUsers.size}`,
+    );
   });
 
   // Send message
@@ -120,7 +122,9 @@ io.on("connection", (socket) => {
     for (let [userId, socketId] of activeUsers.entries()) {
       if (socketId === socket.id) {
         activeUsers.delete(userId);
-        console.log(`✗ User ${userId} disconnected. Active users: ${activeUsers.size}`);
+        console.log(
+          `✗ User ${userId} disconnected. Active users: ${activeUsers.size}`,
+        );
         break;
       }
     }
@@ -135,7 +139,7 @@ app.use((err, req, res, next) => {
 
 // Serve index.html for all non-API routes (SPA fallback)
 app.use((req, res) => {
-  if (req.path.startsWith('/api')) {
+  if (req.path.startsWith("/api")) {
     return res.status(404).json({ error: "Route not found" });
   }
   res.sendFile(path.join(__dirname, "../../client/dist/index.html"));

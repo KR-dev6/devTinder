@@ -9,7 +9,9 @@ const connectDB = async () => {
     console.log("✓ MongoDB connection established successfully");
   } catch (error) {
     console.error("✗ MongoDB connection failed:", error.message);
-    console.log("⚠ Server will continue running without database. API calls will fail.");
+    console.log(
+      "⚠ Server will continue running without database. API calls will fail.",
+    );
   }
 };
 
