@@ -3,6 +3,8 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 import connectDB from "./config/database.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -12,6 +14,10 @@ import messageRoutes from "./routes/messageRoutes.js";
 
 // Load environment variables
 dotenv.config();
+
+// Get __dirname equivalent for ES6 modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Initialize Express app
 const app = express();
@@ -33,6 +39,9 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from the built frontend
+app.use(express.static(path.join(__dirname, "../../client/dist")));
 app.use(
   cors({
     origin: [
@@ -124,9 +133,12 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: err.message || "Server error" });
 });
 
-// 404 handler
+// Serve index.html for all non-API routes (SPA fallback)
 app.use((req, res) => {
-  res.status(404).json({ error: "Route not found" });
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ error: "Route not found" });
+  }
+  res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
 });
 
 // Start server
