@@ -4,11 +4,11 @@
   "description": "",
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "type": "module",
+  "main": "server/src/app.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": " nodemon src/app.js"
+    "start": "node server/src/app.js",
+    "dev": "nodemon server/src/app.js"
   },
   "dependencies": {
     "dotenv": "^17.3.1",
