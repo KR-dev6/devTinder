@@ -1,18 +1,14 @@
 {
   "name": "devtinder",
   "version": "1.0.0",
-  "description": "",
+  "description": "DevTinder - Developer networking app",
   "license": "ISC",
   "author": "",
   "type": "module",
   "main": "server/src/app.js",
   "scripts": {
     "start": "node server/src/app.js",
-    "dev": "nodemon server/src/app.js"
-  },
-  "dependencies": {
-    "dotenv": "^17.3.1",
-    "express": "^5.2.1",
-    "mongoose": "^9.2.1"
+    "dev": "nodemon server/src/app.js",
+    "seed": "node server/src/seed.js"
   }
 }
