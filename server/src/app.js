@@ -26,7 +26,7 @@ const io = new Server(httpServer, {
   cors: {
     origin: [
       "http://localhost:5173",
-      "https://dev-tinder-tan-six.vercel.app",
+      "https://dev-tinder-git-main-kr-dev6s-projects.vercel.app",
       process.env.FRONTEND_URL,
     ],
     credentials: true,
@@ -46,7 +46,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://dev-tinder-tan-six.vercel.app",
+      "https://dev-tinder-git-main-kr-dev6s-projects.vercel.app",
       process.env.FRONTEND_URL,
     ],
     credentials: true,
