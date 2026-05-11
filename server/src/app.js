@@ -12,12 +12,13 @@ import swipeRoutes from "./routes/swipeRoutes.js";
 import matchRoutes from "./routes/matchRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 
-// Load environment variables
-dotenv.config();
-
 // Get __dirname equivalent for ES6 modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Load .env from repo root first, then server/ — later call only fills gaps (no override).
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 // Initialize Express app
 const app = express();
@@ -39,9 +40,6 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Serve static files from the built frontend
-app.use(express.static(path.join(__dirname, "../../client/dist")));
 app.use(
   cors({
     origin: [
@@ -52,6 +50,9 @@ app.use(
     credentials: true,
   }),
 );
+
+// Serve static files from the built frontend
+app.use(express.static(path.join(__dirname, "../../client/dist")));
 
 // Routes
 app.use("/api/auth", authRoutes);
